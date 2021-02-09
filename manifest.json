@@ -1,0 +1,34 @@
+{
+    "name": "xZero",
+    "version": "1.0",
+    "description": "Who needs a frontend when you can have a browser extension",
+    "manifest_version": 2,
+    "icons": {
+        "32": "icons/icon-32x32.svg",
+        "16": "icons/icon-16x16.svg"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+
+    "background": {
+        "scripts": ["background.js"]
+    },
+
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "x0 Extension"
+    },
+
+    "permissions": [
+        "tabs",
+        "storage",
+        "activeTab",
+        "<all_urls>",
+        "clipboardRead",
+        "clipboardWrite"
+    ]
+}

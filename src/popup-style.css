@@ -1,0 +1,40 @@
+
+@font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/Poppins-Regular.ttf") format("truetype");
+  }
+  
+  @font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("/Poppins-Bold.ttf") format("truetype");
+  }
+
+
+body {
+    background-color: #202124;
+    width: flex;
+    height: flex;
+    color: white;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.button {
+    background-color: #31c48d;
+    color: rgba(0, 0, 0, 0.82);
+    border-radius: 2px;
+    padding: 4px 12px;
+    outline: none;
+    font-weight: bold;
+    border: 0;
+    margin-left: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;;
+}
