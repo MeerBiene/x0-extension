@@ -1,4 +1,4 @@
-console.log("hey from tghe background")
+console.log("hey from the background")
 
 import { newRedirect } from './util/index';
 
