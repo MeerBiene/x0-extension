@@ -1,40 +1,47 @@
-import { buttonTemplate, errorTemplate } from './util/util';
+import { buttonTemplate, newRedirect, selectTemplate } from './util/util';
+import StorageProvider from './util/StorageProvider';
 import { render } from 'lit-html';
 
-// list current namespaces
-chrome.storage.sync.get(['namespaces'], (items: { [ key:string ]: string }) => {
-    console.log(Object.entries(items).length);
-    Object.keys(items.namespaces).length > 0 ? render(buttonTemplate(), document.body) : render(errorTemplate("Not registered"), document.body);
-})
-
-
-//!FIXME
 // wait for the html document inside the popup to load
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener(
+  'DOMContentLoaded',
+  function () {
+    render(buttonTemplate(), document.body);
+    document.getElementById('redirect').addEventListener('click', async () => {
+      console.log('yay');
+      // initialize Storageprovider
+      StorageProvider.getAll();
 
-
-
-
-
-    document.getElementById('redirect').addEventListener('click', onclick, false)
-    
-    function onclick () {
-    // query and select active tab
-        chrome.tabs.query({ currentWindow: true, active: true },
-            function(tabs) {
-                console.log(tabs)
-
-                const currentUrl = tabs[0].url
-
-
-                
-                chrome.runtime.sendMessage({
-                    "action": "REDIRECT",
-                    "data": currentUrl
-                })
-                
-            }
-        )
-    }
-
-}, false)
+      chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+        const all = StorageProvider.getAll();
+        const currentUrl = tabs[0].url;
+        console.log(currentUrl);
+        if (all.data) {
+          if (Object.keys(all.data).length > 1) {
+            // show select input with namespaces
+            render(
+              selectTemplate(Object.keys(all.data), 'namespaces'),
+              document.body
+            );
+          }
+        }
+        newRedirect(currentUrl, all.data);
+      });
+    });
+    //     // query and select active tab
+    //     chrome.tabs.query(
+    //       { currentWindow: true, active: true },
+    //       function (tabs) {
+    //         const currentUrl = tabs[0].url;
+    //         chrome.runtime.sendMessage({
+    //           action: 'REDIRECT',
+    //           data: currentUrl
+    //         });
+    //       }
+    //     );
+    //   },
+    //   false
+    // );
+  },
+  false
+);

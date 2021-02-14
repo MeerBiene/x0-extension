@@ -1,25 +1,21 @@
-console.log("hey from the background")
+console.log('hey from the background');
 
-import { newRedirect } from './util/index';
+import { newRedirect } from './util/util';
+import StorageProvider from './util/StorageProvider';
 
+chrome.runtime.onMessage.addListener(function (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  request: any,
+  sender: unknown,
+  sendResponse: unknown
+) {
+  console.log(request, sender, sendResponse);
+  switch (request.action) {
+    case 'REDIRECT':
+      // TODO: send error if link doesnt start with http
+      request.data.includes('http') ? newRedirect(request.data, '') : null;
+      break;
+  }
+});
 
-chrome.runtime.onMessage.addListener( function(request:any, sender:any, sendResponse:any) {
-    console.log(request, sender)
-    switch(request.action) {
-        case "REDIRECT":
-            request.data.includes("http") ? newRedirect(request.data) : null;
-        break;
-    }
-})
-
-chrome.storage.sync.set({
-    'namespaces2': {
-        'bene': 'testtoken'
-    }
-})
-
-chrome.storage.sync.get(['namespaces', 'namespaces2'], async(items: { [key: string]:string }) => {
-    
-    console.log(items)
-
-})
+console.log('all', StorageProvider.getAll());
