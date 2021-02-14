@@ -18,13 +18,13 @@
 
 body {
     background-color: #202124;
-    width: flex;
-    height: flex;
+    width: 25;
+    height: 35;
     color: white;
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.button {
+.select {
     background-color: #31c48d;
     color: rgba(0, 0, 0, 0.82);
     border-radius: 2px;

@@ -6,8 +6,7 @@ import { render } from 'lit-html';
 document.addEventListener(
   'DOMContentLoaded',
   function () {
-    render(buttonTemplate(), document.body);
-    document.getElementById('redirect').addEventListener('click', async () => {
+    const a = async () => {
       console.log('yay');
       // initialize Storageprovider
       StorageProvider.getAll();
@@ -20,28 +19,17 @@ document.addEventListener(
           if (Object.keys(all.data).length > 1) {
             // show select input with namespaces
             render(
-              selectTemplate(Object.keys(all.data), 'namespaces'),
+              selectTemplate(Object.keys(all.data), 'namespaces', () => {
+                console.log(document.getElementById('namespaces'));
+              }),
               document.body
             );
           }
         }
         newRedirect(currentUrl, all.data);
       });
-    });
-    //     // query and select active tab
-    //     chrome.tabs.query(
-    //       { currentWindow: true, active: true },
-    //       function (tabs) {
-    //         const currentUrl = tabs[0].url;
-    //         chrome.runtime.sendMessage({
-    //           action: 'REDIRECT',
-    //           data: currentUrl
-    //         });
-    //       }
-    //     );
-    //   },
-    //   false
-    // );
+    };
+    render(buttonTemplate(a), document.body);
   },
   false
 );

@@ -16,40 +16,26 @@ export const newRedirect = async (
   return;
 };
 
-export const buttonTemplate = (): TemplateResult => html` <div>
-  <button class="redirect" id="redirect">Add Redirect</button>
-  <script>
-    function main() {
-      console.log('Hello wolrd');
-      chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-        console.log(tabs);
-
-        const currentUrl = tabs[0].url;
-
-        chrome.runtime.sendMessage({
-          action: 'REDIRECT',
-          data: currentUrl
-        });
-      });
-    }
-  </script>
+export const buttonTemplate = (
+  clickHandler: unknown
+): TemplateResult => html` <div>
+  <button class="redirect" id="redirect" @click=${clickHandler}>
+    Add Redirect
+  </button>
 </div>`;
 
 export const selectTemplate = (
   options: string[],
-  selectId: string
+  selectId: string,
+  clickHandler: unknown
 ): TemplateResult => {
-  let outputString = '';
-  for (let i = 0; i < options.length; i++) {
-    outputString += `
-    <option value="${options[i]}">${options[i]}</option>
-    `;
-  }
-  return html`
-    <select id="${selectId}">
-      ${outputString.replace('"', '')}
+  return html`<select>
+      id=${selectId} class=${selectId}
+      ${options.map(
+        (option) => html`<option value="${option}">${option}</option>`
+      )}
     </select>
-  `;
+    <button @click=${clickHandler}>Submit</button> `;
 };
 
 export const errorTemplate = (errormsg: string): TemplateResult => html` <div>
