@@ -1,21 +1,26 @@
-console.log('hey from the background');
-
-import { newRedirect } from './util/util';
-import StorageProvider from './util/StorageProvider';
-
-chrome.runtime.onMessage.addListener(function (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  request: any,
-  sender: unknown,
-  sendResponse: unknown
-) {
-  console.log(request, sender, sendResponse);
-  switch (request.action) {
-    case 'REDIRECT':
-      // TODO: send error if link doesnt start with http
-      request.data.includes('http') ? newRedirect(request.data, '') : null;
-      break;
-  }
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.contentScriptQuery == 'getData') {
+        const url = request.url;
+        fetch(url)
+            .then((response) => response.text())
+            .then((response) => sendResponse(response))
+            .catch();
+        return true;
+    }
+    if (request.contentScriptQuery == 'postData') {
+        fetch(request.url, {
+            method: 'POST',
+            headers: {
+                Accept:
+                    'application/json, application/xml, text/plain, text/html, *.*',
+                'Content-Type':
+                    'application/x-www-form-urlencoded; charset=utf-8'
+            },
+            body: 'result=' + request.data
+        })
+            .then((response) => response.json())
+            .then((response) => sendResponse(response))
+            .catch((error) => console.log('Error:', error));
+        return true;
+    }
 });
-
-console.log('all', StorageProvider.getAll());
