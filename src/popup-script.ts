@@ -1,60 +1,47 @@
-import { newRedirect } from './util/util';
+import {
+  newRedirect,
+  selectNameSpaceTemplate,
+  registerOrSubmitTemplate
+} from './util/templates';
 import StorageProvider from './util/StorageProvider';
 
 // wait for the html document inside the popup to load
 document.addEventListener(
-    'DOMContentLoaded',
-    function () {
-        const a = async () => {
-            document.getElementById('root').innerHTML = `
+  'DOMContentLoaded',
+  function () {
+    const a = async () => {
+      document.getElementById('root').innerHTML = `
       <button id="redirect">New Redirect</button>`;
-            console.log('yay');
-            // initialize Storage Provider
-            StorageProvider.getAll();
-            let datamibus;
-            chrome.storage.sync.get(['namespaces'], (items) => {
-                if (items) return;
-                datamibus = items.namespaces;
-            });
 
-            console.log(datamibus, 'datamibus');
+      document
+        .getElementById('redirect')
+        .addEventListener('click', async () => {
+          const all = StorageProvider.getAll();
+          if (!all.data) {
+            // no namespace registered,show submit or register template
+            document.getElementById(
+              'root'
+            ).innerHTML = registerOrSubmitTemplate();
+            return;
+          }
+          if (Object.keys(all).length > 1) {
+            // more than one namespace, show select template
+            document.getElementById(
+              'root'
+            ).innerHTML = selectNameSpaceTemplate();
+          } else if (Object.keys(all).length == 1) {
+            // execute redirect directly with the one namespace
+          }
+        });
 
-            document
-                .getElementById('redirect')
-                .addEventListener('click', async () => {
-                    console.log(this);
-                    await StorageProvider.getAll();
-                    const all = await StorageProvider.getAll();
-                    console.log(all);
-                    if (!all.data) return;
-                    let output = '';
-                    for (let i = 0; i < all.data.length; i++) {
-                        output += `<option value="${all.data[i]}">${all.data[i]}</option>`;
-                    }
-                    output = `<select id='namespaces'>${output}</select>`;
-                    document.getElementById('root').innerHTML = output;
-                });
-
-            chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-                const all = StorageProvider.getAll();
-                const currentUrl = tabs[0].url;
-                console.log(currentUrl);
-                if (all.data) {
-                    if (Object.keys(all.data).length > 1) {
-                        // show select input with namespaces
-                        // render(
-                        //   selectTemplate(Object.keys(all.data), 'namespaces', () => {
-                        //     console.log(document.getElementById('namespaces'));
-                        //   }),
-                        //   document.body
-                        // );
-                    }
-                }
-                newRedirect(currentUrl, all.data);
-            });
-        };
-        a();
-        // render(buttonTemplate(a), document.body);
-    },
-    false
+      chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+        const all = StorageProvider.getAll();
+        const currentUrl = tabs[0].url;
+        newRedirect(currentUrl, all.data);
+      });
+    };
+    a();
+    // render(buttonTemplate(a), document.body);
+  },
+  false
 );

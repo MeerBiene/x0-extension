@@ -18,10 +18,19 @@
 
 body {
     background-color: #202124;
-    width: 75px;
-    height: 65px;
+    width: flex;
+    height: flex;
     color: white;
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.root {
+    width: 100px;
+    height: 95px;
+}
+
+.grid {
+  display: grid;
 }
 
 .select {
