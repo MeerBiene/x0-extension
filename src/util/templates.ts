@@ -15,10 +15,7 @@ export const registerOrSubmitTemplate = (): string => {
   return `
   <h4>It seems as if you have no namespaces saved yet. Register one now or submit an already existing one.</h4>
   <button id="register" class="btn-register">Register New</button>
-  <div id="grid">
-    <input type="text" placeholder="Submit Existing" class="submit" id="submit">
-    <button>Enter</button>
-  </div>
+  <button id="submit" class="btn-submit">Submit Existing</button>
   `;
 };
 

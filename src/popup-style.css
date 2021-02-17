@@ -18,8 +18,8 @@
 
 body {
     background-color: #202124;
-    width: flex;
-    height: flex;
+    width: 120;
+    height: 100;
     color: white;
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -29,9 +29,6 @@ body {
     height: 95px;
 }
 
-.grid {
-  display: grid;
-}
 
 .select {
     background-color: #31c48d;

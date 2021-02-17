@@ -1,47 +1,39 @@
 import {
-  newRedirect,
   selectNameSpaceTemplate,
   registerOrSubmitTemplate
 } from './util/templates';
+import submitListener from './util/listeners/submitListener';
 import StorageProvider from './util/StorageProvider';
 
+const init = async () => {
+  document
+    .getElementById('redirect')
+    .addEventListener('click', redirectEventListener);
+
+  // chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+  //   const all = StorageProvider.getAll();
+  //   const currentUrl = tabs[0].url;
+  //   newRedirect(currentUrl, all.data);
+  // });
+};
+
+const redirectEventListener = () => {
+  const storage = new StorageProvider();
+  const all = storage.all;
+  console.log(all);
+  if (all) {
+    // no namespace registered,show submit or register template
+    document.getElementById('root').innerHTML = registerOrSubmitTemplate();
+    document.getElementById('submit').addEventListener('click', submitListener);
+    return;
+  }
+  if (Object.keys(all).length > 1) {
+    // more than one namespace, show select template
+    document.getElementById('root').innerHTML = selectNameSpaceTemplate();
+  } else if (Object.keys(all).length == 1) {
+    // execute redirect directly with the one namespace
+  }
+};
+
 // wait for the html document inside the popup to load
-document.addEventListener(
-  'DOMContentLoaded',
-  function () {
-    const a = async () => {
-      document.getElementById('root').innerHTML = `
-      <button id="redirect">New Redirect</button>`;
-
-      document
-        .getElementById('redirect')
-        .addEventListener('click', async () => {
-          const all = StorageProvider.getAll();
-          if (!all.data) {
-            // no namespace registered,show submit or register template
-            document.getElementById(
-              'root'
-            ).innerHTML = registerOrSubmitTemplate();
-            return;
-          }
-          if (Object.keys(all).length > 1) {
-            // more than one namespace, show select template
-            document.getElementById(
-              'root'
-            ).innerHTML = selectNameSpaceTemplate();
-          } else if (Object.keys(all).length == 1) {
-            // execute redirect directly with the one namespace
-          }
-        });
-
-      chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-        const all = StorageProvider.getAll();
-        const currentUrl = tabs[0].url;
-        newRedirect(currentUrl, all.data);
-      });
-    };
-    a();
-    // render(buttonTemplate(a), document.body);
-  },
-  false
-);
+document.addEventListener('DOMContentLoaded', init);

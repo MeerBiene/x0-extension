@@ -1,0 +1,8 @@
+function prompt_my_cpu_temp() {
+integer cpu_temp="$(</sys/class/thermal/thermal_zone0/temp) / 1000"
+if (( cpu_temp >= 80 )); then
+	pk10 segment -s HOT -f red -i '🔥' -t "${cpu_temp}°C"
+elif (( cpu_temp >= 50 )); then
+	pk10 segment -s WARM -f yellow -i '' -t "${cpu_temp}°C"
+fi
+}
