@@ -15,17 +15,18 @@ module.exports = {
     // 'prettier',
     'plugin:promise/recommended'
   ],
-  'plugins': ['promise', 'prettier'],
+  plugins: ['promise', 'prettier'],
   rules: {
     'no-console': 'error',
     'prefer-arrow-callback': 'error',
-    'semi': ['error', 'never'],
-    // 'prettier/prettier': [
-    //   'error', {
-    //   singleQuote: true,
-    //   semi: false,
-    //   trailingComma: true // be same with airbnb comma-dangle rule
-    // }]
+    semi: ['error', 'never'],
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        semi: false,
+        trailingComma: 'none', // be same with airbnb comma-dangle rule
+      }
+    ]
   }
 }
-

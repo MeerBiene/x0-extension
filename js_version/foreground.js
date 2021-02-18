@@ -1,1 +1,1 @@
-alert('Injection complete');
+alert('Injection complete')

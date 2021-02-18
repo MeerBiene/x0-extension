@@ -29,6 +29,71 @@ body {
     height: 95px;
 }
 
+a {
+  color: #00b8ae
+}
+
+
+/*
+the initial button that is shown
+*/
+.btn-redirect {
+  background-color: #00b8ae;
+}
+
+
+/* 
+the div that is used to show success and the link
+*/
+.successMessage {
+  width: 120;
+  height: 100;
+}
+
+/* 
+the input that is shown to the user where they can enter
+a custom key they want to use for the redirect
+*/
+.customKey {
+  width: auto;
+  height: auto;
+}
+
+/*
+the select input that is shown to the user for when there are 
+multiple namespaces registered
+*/
+.selectNamespace {
+  width: auto;
+}
+
+
+/*
+enter button for confirming the new redirect
+*/
+.btn-enter {
+  background-color: #00b8ae;
+}
+
+
+/*
+the register select that is shown when no namespaces are found
+*/
+.registerselect {
+  width: auto;
+}
+
+
+/*
+the button that is used to pick either to register a new
+namespace or submit an existing one
+*/
+.btn-submit {
+  width: auto;
+}
+
+
+
 
 .select {
     background-color: #31c48d;

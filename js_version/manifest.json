@@ -1,28 +1,29 @@
 {
-    "name": "x0JS",
-    "version": "0.0.1",
-    "description": "Who needs a frontend when you can have a browser extension",
-    "manifest_version": 2,
-    "icons": {
-        "32": "icons/icon-32x32.svg",
-        "16": "icons/icon-16x16.svg"
-    },
+  "name": "x0JS",
+  "version": "0.0.1",
+  "description": "Who needs a frontend when you can have a browser extension",
+  "manifest_version": 2,
+  "icons": {
+    "32": "icons/icon-32x32.svg",
+    "16": "icons/icon-16x16.svg"
+  },
 
-    "background": {
-        "scripts": ["background.js"]
-    },
-    "options_page": "./options.html",
-    "browser_action": {
-        "default_popup": "popup.html",
-        "default_title": "x0 Extension"
-    },
 
-    "permissions": [
-        "tabs",
-        "storage",
-        "activeTab",
-        "<all_urls>",
-        "clipboardRead",
-        "clipboardWrite"
-    ]
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "options_page": "./options.html",
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "x0 Extension"
+  },
+
+  "permissions": [
+    "tabs",
+    "storage",
+    "activeTab",
+    "<all_urls>",
+    "clipboardRead",
+    "clipboardWrite"
+  ]
 }
