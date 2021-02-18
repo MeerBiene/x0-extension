@@ -1,5 +1,5 @@
 {
-    "name": "xZero",
+    "name": "x0JS",
     "version": "0.0.1",
     "description": "Who needs a frontend when you can have a browser extension",
     "manifest_version": 2,
@@ -7,12 +7,6 @@
         "32": "icons/icon-32x32.svg",
         "16": "icons/icon-16x16.svg"
     },
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["content.js"]
-        }
-    ],
 
     "background": {
         "scripts": ["background.js"]

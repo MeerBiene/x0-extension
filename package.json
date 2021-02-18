@@ -1,12 +1,13 @@
 {
   "name": "x0-extension",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node ./tests/runTest.js",
     "commit": "cz",
-    "release": "standard-version",
+    "prepublish": "node ./tests/runTest.js",
+    "publish": "standard-version",
     "lint": "eslint **/**/*.{ts,tsx,cjs}",
     "lint:fix": "eslint **/**/*.{ts,tsx,cjs} --fix",
     "clean": "rimraf dist",
